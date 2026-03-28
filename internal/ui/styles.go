@@ -6,7 +6,7 @@ var (
 	colorBg      = lipgloss.Color("#0d0d0f")
 	colorPanel   = lipgloss.Color("#11111a")
 	colorPanelHi = lipgloss.Color("#171726")
-	colorDim     = lipgloss.Color("#3a3a4a")
+	colorDim     = lipgloss.Color("#5b5b72")
 	colorSubtle  = lipgloss.Color("#6c6c8a")
 	colorCorrect = lipgloss.Color("#e2e2f0")
 	colorWrong   = lipgloss.Color("#ff4d6d")

@@ -248,7 +248,7 @@ func Render(state State) tea.View {
 	}
 	if !state.Loaded {
 		view.SetContent(
-			lipgloss.NewStyle().Foreground(colorSubtle).Italic(true).Render("loading..."),
+			lipgloss.NewStyle().Foreground(colorSubtle).Italic(true).Render("loading...\n"),
 		)
 		return view
 	}

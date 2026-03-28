@@ -64,17 +64,13 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			case "enter", " ":
 				m.applySettingsSelection()
 			case "p":
-				m.Punctuation = !m.Punctuation
-				m.regenerateSession()
+				m.setPunctuation(!m.Punctuation)
 			case "1":
-				m.SessionDuration = 15 * time.Second
-				m.regenerateSession()
+				m.setSessionDuration(15 * time.Second)
 			case "2":
-				m.SessionDuration = 30 * time.Second
-				m.regenerateSession()
+				m.setSessionDuration(30 * time.Second)
 			case "3":
-				m.SessionDuration = time.Minute
-				m.regenerateSession()
+				m.setSessionDuration(time.Minute)
 			}
 			return m, nil
 		}

@@ -7,16 +7,24 @@ const settingsItemCount = 4
 func (m *Model) applySettingsSelection() {
 	switch m.SettingsCursor {
 	case 0:
-		m.Punctuation = !m.Punctuation
-		m.regenerateSession()
+		m.setPunctuation(!m.Punctuation)
 	case 1:
-		m.SessionDuration = 15 * time.Second
-		m.regenerateSession()
+		m.setSessionDuration(15 * time.Second)
 	case 2:
-		m.SessionDuration = 30 * time.Second
-		m.regenerateSession()
+		m.setSessionDuration(30 * time.Second)
 	case 3:
-		m.SessionDuration = time.Minute
-		m.regenerateSession()
+		m.setSessionDuration(time.Minute)
 	}
+}
+
+func (m *Model) setPunctuation(value bool) {
+	m.Punctuation = value
+	m.regenerateSession()
+	m.persistConfig()
+}
+
+func (m *Model) setSessionDuration(value time.Duration) {
+	m.SessionDuration = value
+	m.regenerateSession()
+	m.persistConfig()
 }
