@@ -42,9 +42,7 @@ type State struct {
 func renderStatus(state State) string {
 	timerDisplay := lipgloss.NewStyle().Foreground(colorDim).Background(colorPanel).Render("●")
 	remaining := int((state.SessionDuration - state.Elapsed).Seconds())
-	if remaining < 0 {
-		remaining = 0
-	}
+	remaining = max(0,remaining)
 	if state.Started || state.Finished {
 		timerDisplay = lipgloss.NewStyle().Foreground(colorSubtle).Background(colorPanel).Render(fmt.Sprintf("%d", remaining))
 	}
@@ -223,9 +221,7 @@ func renderChars(chars []Char, cursor, maxWidth int) string {
 	}
 
 	endLine := startLine + 3
-	if endLine > len(lines) {
-		endLine = len(lines)
-	}
+	endLine = min(len(lines), endLine)
 
 	output := make([]string, 0, 3)
 	for i := startLine; i < endLine; i++ {
@@ -241,6 +237,7 @@ func renderChars(chars []Char, cursor, maxWidth int) string {
 func Render(state State) tea.View {
 	var view tea.View
 	bgColor := colorBg
+	view.AltScreen = true
 
 	if state.Err != nil {
 		view.SetContent(fmt.Sprintf("error: %s\n", state.Err))
@@ -254,9 +251,7 @@ func Render(state State) tea.View {
 	}
 
 	innerWidth := state.Width - boxStyle.GetHorizontalFrameSize() - 4
-	if innerWidth < 20 {
-		innerWidth = 20
-	}
+	innerWidth = max(20, innerWidth)
 
 	charsOutput := renderChars(state.Chars, state.Cursor, innerWidth)
 	panelLine := lipgloss.NewStyle().Width(innerWidth).Background(colorPanel)
@@ -266,7 +261,7 @@ func Render(state State) tea.View {
 	}
 	charsOutput = strings.Join(charLines, "\n")
 	statusOutput := panelLine.Render(renderStatus(state))
-	hintOutput := panelLine.Render(hintStyle.Render("ctrl+c to quit   tab+enter to restart   / settings"))
+	hintOutput := panelLine.Render(hintStyle.Render("ctrl+c | ctrl+z to quit   tab+enter to restart   / settings"))
 
 	box := boxStyle.Width(innerWidth + boxStyle.GetHorizontalFrameSize()).Render(
 		lipgloss.JoinVertical(lipgloss.Left,
@@ -297,6 +292,5 @@ func Render(state State) tea.View {
 		Render(box)
 
 	view.SetContent(centered)
-	view.AltScreen = true
 	return view
 }
