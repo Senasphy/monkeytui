@@ -34,7 +34,7 @@ Run the binary:
 
 Controls:
 
-- `ctrl+c`: quit
+- `ctrl+c` | `ctrl+z`: quit
 - `tab` then `enter`: restart
 - `/`: open settings
 - `j` / `k` or arrow keys: navigate settings
