@@ -78,7 +78,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "ctrl+c":
 			return m, tea.Quit
-
+		case "ctrl+z":
+			return m, tea.Quit
 		case "tab":
 			m.RestartArmed = true
 			return m, nil
