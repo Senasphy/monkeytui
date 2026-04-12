@@ -80,6 +80,9 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Quit
 		case "ctrl+z":
 			return m, tea.Quit
+		case "ctrl+r":
+			m.regenerateSession()
+			return m, tick()
 		case "tab":
 			m.RestartArmed = true
 			return m, nil

@@ -261,7 +261,7 @@ func Render(state State) tea.View {
 	}
 	charsOutput = strings.Join(charLines, "\n")
 	statusOutput := panelLine.Render(renderStatus(state))
-	hintOutput := panelLine.Render(hintStyle.Render("ctrl+c | ctrl+z to quit   tab+enter to restart   / settings"))
+	hintOutput := panelLine.Render(hintStyle.Render("ctrl+c | ctrl+z to quit      ctrl + enter | tab+enter to restart      / settings"))
 
 	box := boxStyle.Width(innerWidth + boxStyle.GetHorizontalFrameSize()).Render(
 		lipgloss.JoinVertical(lipgloss.Left,
