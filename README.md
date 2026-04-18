@@ -24,6 +24,20 @@ Prebuilt binaries are available for macOS, Linux, and Windows.
 2. Extract the archive.
 3. Run the binary.
 
+### With curl install scripts
+
+`sh` (macOS/Linux):
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/Senasphy/monkeytui/main/scripts/install.sh | sh
+```
+
+PowerShell (Windows):
+
+```powershell
+curl.exe -fsSL https://raw.githubusercontent.com/Senasphy/monkeytui/main/scripts/install.ps1 | powershell -NoProfile -ExecutionPolicy Bypass -Command -
+```
+
 ## Usage
 
 Run the binary:
