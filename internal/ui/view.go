@@ -42,14 +42,15 @@ type State struct {
 func renderStatus(state State) string {
 	timerDisplay := lipgloss.NewStyle().Foreground(colorDim).Background(colorPanel).Render("●")
 	remaining := int((state.SessionDuration - state.Elapsed).Seconds())
-	remaining = max(0,remaining)
+	remaining = max(0, remaining)
 	if state.Started || state.Finished {
 		timerDisplay = lipgloss.NewStyle().Foreground(colorSubtle).Background(colorPanel).Render(fmt.Sprintf("%d", remaining))
 	}
 
 	statusBar := timerDisplay
 	if state.Finished {
-		statusBar += fmt.Sprintf("   WPM: %s   Accuracy: %s",
+		statusBar += fmt.Sprintf(
+			"   WPM: %s   Accuracy: %s",
 			lipgloss.NewStyle().Foreground(colorCursor).Background(colorPanel).Bold(true).Render(fmt.Sprintf("%d", state.WPM)),
 			lipgloss.NewStyle().Foreground(colorSubtle).Background(colorPanel).Render(fmt.Sprintf("%d%%", state.Accuracy)),
 		)
@@ -191,10 +192,6 @@ func renderLine(chars []Char, cursor, start, end int) string {
 	for i := start; i < end; i++ {
 		ch := chars[i]
 		display := string(ch.Expected)
-		if ch.State == StateWrong {
-			display = string(ch.Typed)
-		}
-
 		switch ch.State {
 		case StateCorrect:
 			sb.WriteString(correctStyle.Render(display))
@@ -264,7 +261,8 @@ func Render(state State) tea.View {
 	hintOutput := panelLine.Render(hintStyle.Render("ctrl+c | ctrl+z to quit      ctrl + enter | tab+enter to restart      / settings"))
 
 	box := boxStyle.Width(innerWidth + boxStyle.GetHorizontalFrameSize()).Render(
-		lipgloss.JoinVertical(lipgloss.Left,
+		lipgloss.JoinVertical(
+			lipgloss.Left,
 			panelLine.Render(titleStyle.Render("monkeytui")),
 			panelLine.Render(""),
 			charsOutput,
